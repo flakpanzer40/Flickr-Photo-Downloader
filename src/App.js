@@ -50,10 +50,19 @@ class App extends Component {
 
   //Download the pics in the array
   downloadPhotos(){
-    var fileDownload = require('js-file-download');
     
-      this.state.Download.map(function(link){
-        return fileDownload(link, 'food.jpg');
+    
+      this.state.Download.map((link)=>{
+        return setTimeout(() => {
+          const response = {
+            file: link,
+          };
+          // server sent the url to the file!
+          // now, let's download:
+          window.location.href = response.file;
+          // you could also do:
+          // window.open(response.file);
+        }, 100);
       })
 
 
@@ -110,7 +119,7 @@ class App extends Component {
       //const url = `http://www.flickr.com/photos/${photo.owner}/${photo.id}`
       const url = `http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`
       //return <a href ={`http://www.flickr.com/photos/${photo.owner}/${photo.id}`}><img key={i} src={`http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`} alt='food'></img></a>
-      return <img key={i} src={`http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} alt={photo.title} onClick={()=>{this.addToDownload(url)}}></img>
+      return <a href={url} download><img key={i} src={`http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} alt={photo.title} onClick={()=>{this.addToDownload(url)}}></img></a>
     });
     return (
       
