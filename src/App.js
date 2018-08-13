@@ -11,8 +11,8 @@ class App extends Component {
       photos: [],
       selectedOption:'',
       user:'',
-      Download: []
-      
+      Download: [],
+      style:{}
     }
   }
 
@@ -38,12 +38,14 @@ class App extends Component {
       
       newArray.push(url);   
       this.setState({Download:newArray})
+      
     }
     else{
        
       var index = newArray.indexOf(url)
       newArray.splice(index,1)
       this.setState({Download:newArray})
+     
     }
 
   }
@@ -110,8 +112,7 @@ class App extends Component {
       //const url = `http://www.flickr.com/photos/${photo.owner}/${photo.id}`
       const url = `http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`
       //return <a href ={`http://www.flickr.com/photos/${photo.owner}/${photo.id}`}><img key={i} src={`http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg`} alt='food'></img></a>
-      return <img key={i} src={`http://farm${photo.farm}.static.flickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`} alt={photo.title} onClick={()=>{this.addToDownload(url)}}></img>
-    });
+      return <img style= {this.state.Download.includes(url)?{ border: '3px solid #021a40' } : {}} key={i} src={url} alt={photo.title} onClick={()=>{this.addToDownload(url);}}></img>});
     return (
       
       <div className="App">
